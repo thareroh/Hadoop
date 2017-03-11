@@ -1,0 +1,29 @@
+mysql -u retail_dba -h nn01.itversity.com -p itversity
+
+sqoop import --connect jdbc:mysql://nn01.itversity.com:3306/reatil_db --username retail_dba --password itversity --table departments --target-dir /user/thareroh/departments --num-mappers 2;
+
+Selecting data subset using where clause 
+=====================================
+sqoop import --connect jdbc:mysql://nn01.itversity.com:3306/retail_db --username retail_dba --password itversity --table departments --where "department_id > 5" --split-by department_id --target-dir /user/thareroh/departments
+
+Append data
+=============
+sqoop import --connect jdbc:mysql://nn01.itversity.com:3306/retail_db --username retail_dba --password itversity --table departments --append --where "department_id < 5" --split-by department_id --target-dir /user/thareroh/departments
+
+
+Importing data
+================
+sqoop import --connect jdbc:mysql://nn01.itversity.com:3306/retail_db --username retail_dba --password itversity --table departments --target-dir /user/thareroh/departments
+
+
+Data boundary query 
+==================
+sqoop import --connect jdbc:mysql://nn01.itversity.com:3306/retail_db --username retail_dba --password itversity --table departments --target-dir /user/thareroh/departments --boundary-query "select min(department_id),max(department_id) from departments where department_id <> 100"
+
+Database table list
+==================
+sqoop list-tables --connect jdbc:mysql://nn01.itversity.com:3306/retail_db --username retail_dba --password itversity
+
+Querying a database table
+==========================
+sqoop eval --connect jdbc:mysql://nn01.itversity.com:3306/retail_db --username retail_dba --password itversity --query 'select * from departments' 
